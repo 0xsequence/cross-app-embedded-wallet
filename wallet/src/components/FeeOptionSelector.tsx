@@ -1,4 +1,4 @@
-import { Box, Button, Text } from '@0xsequence/design-system'
+import { Button, Text } from '@0xsequence/design-system';
 import { FeeOption } from '@0xsequence/waas'
 import { ZeroAddress, formatUnits, parseUnits } from 'ethers'
 import React, { ComponentProps } from 'react'
@@ -40,11 +40,11 @@ export const FeeOptionSelector: React.FC<FeeOptionSelectorProps> = ({
   })
 
   return (
-    <Box marginY="3" width="full">
+    (<div className="my-3 w-full">
       <Text variant="medium" color="text100" fontWeight="bold">
         Select a fee option
       </Text>
-      <Box flexDirection="column" marginTop="2" gap="2">
+      <div className="flex flex-col mt-2 gap-2">
         {sortedOptions.map((option, index) => {
           const balance = feeOptionBalances.find(b => b.tokenName === option.token.name)
           const isSufficient = isBalanceSufficient(
@@ -53,15 +53,9 @@ export const FeeOptionSelector: React.FC<FeeOptionSelectorProps> = ({
             option.token.decimals || 0
           )
           return (
-            <Box
+            (<div
+              className="p-3 rounded-xl"
               key={index}
-              padding="3"
-              borderRadius="md"
-              background={
-                selectedFeeOptionAddress === (option.token.contractAddress ?? ZeroAddress)
-                  ? 'gradientBackdrop'
-                  : 'backgroundRaised'
-              }
               onClick={() => {
                 if (isSufficient) {
                   setSelectedFeeOptionAddress(option.token.contractAddress ?? ZeroAddress)
@@ -74,12 +68,9 @@ export const FeeOptionSelector: React.FC<FeeOptionSelectorProps> = ({
                     variant: 'warning'
                   })
                 }
-              }}
-              cursor={isSufficient ? 'pointer' : 'default'}
-              opacity={isSufficient ? '100' : '50'}
-            >
-              <Box flexDirection="row" justifyContent="space-between" alignItems="center">
-                <Box flexDirection="column">
+              }}>
+              <div className="flex flex-row justify-between items-center">
+                <div className="flex flex-col">
                   <Text variant="small" color="text100" fontWeight="bold">
                     {option.token.name}
                   </Text>
@@ -90,8 +81,8 @@ export const FeeOptionSelector: React.FC<FeeOptionSelectorProps> = ({
                       { maximumFractionDigits: 6 }
                     )}
                   </Text>
-                </Box>
-                <Box flexDirection="column" alignItems="flex-end">
+                </div>
+                <div className="flex flex-col items-end">
                   <Text variant="xsmall" color="text80">
                     Balance:
                   </Text>
@@ -100,13 +91,13 @@ export const FeeOptionSelector: React.FC<FeeOptionSelectorProps> = ({
                       formatUnits(BigInt(balance?.balance || '0'), option.token.decimals || 0)
                     ).toLocaleString(undefined, { maximumFractionDigits: 6 })}
                   </Text>
-                </Box>
-              </Box>
-            </Box>
-          )
+                </div>
+              </div>
+            </div>)
+          );
         })}
-      </Box>
-      <Box marginY="2" alignItems="flex-end" justifyContent="center" flexDirection="column">
+      </div>
+      <div className="flex my-2 items-end justify-center flex-col">
         <Button
           size="sm"
           onClick={checkTokenBalancesForFeeOptions}
@@ -114,18 +105,18 @@ export const FeeOptionSelector: React.FC<FeeOptionSelectorProps> = ({
           disabled={isRefreshingBalance}
         />
         {feeOptionAlert && (
-          <Box marginTop="3">
+          <div className="mt-3">
             <Alert
               title={feeOptionAlert.title}
               description={feeOptionAlert.description}
               secondaryDescription={feeOptionAlert.secondaryDescription}
               variant={feeOptionAlert.variant}
             />
-          </Box>
+          </div>
         )}
-      </Box>
-    </Box>
-  )
+      </div>
+    </div>)
+  );
 }
 
 export type AlertProps = {
@@ -146,18 +137,11 @@ export const Alert = ({
   children
 }: AlertProps) => {
   return (
-    <Box borderRadius="md" background={variant}>
-      <Box
-        background="backgroundOverlay"
-        borderRadius="md"
-        paddingX={{ sm: '4', md: '5' }}
-        paddingY="4"
-        width="full"
-        flexDirection="column"
-        gap="3"
-      >
-        <Box width="full" flexDirection={{ sm: 'column', md: 'row' }} gap="2" justifyContent="space-between">
-          <Box flexDirection="column" gap="1">
+    (<div className="rounded-xl">
+      <div
+        className="flex bg-background-overlay rounded-xl py-4 w-full flex-col gap-3">
+        <div className="flex w-full gap-2 justify-between">
+          <div className="flex flex-col gap-1">
             <Text variant="normal" color="text100" fontWeight="medium">
               {title}
             </Text>
@@ -171,17 +155,17 @@ export const Alert = ({
                 {secondaryDescription}
               </Text>
             )}
-          </Box>
+          </div>
 
           {buttonProps ? (
-            <Box background={variant} borderRadius="sm" width={'min'} height={'min'}>
-              <Button variant="emphasis" shape="square" flexShrink="0" {...buttonProps} />
-            </Box>
+            <div className="rounded-lg w-min h-min">
+              <Button className="shrink-0" variant="emphasis" shape="square" {...buttonProps} />
+            </div>
           ) : null}
-        </Box>
+        </div>
 
         {children}
-      </Box>
-    </Box>
-  )
+      </div>
+    </div>)
+  );
 }

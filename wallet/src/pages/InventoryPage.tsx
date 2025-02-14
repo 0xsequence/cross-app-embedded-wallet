@@ -1,13 +1,4 @@
-import {
-  Box,
-  Button,
-  IconButton,
-  Image,
-  SendIcon,
-  Text,
-  TokenImage,
-  nativeTokenImageUrl
-} from '@0xsequence/design-system'
+import { Button, IconButton, Image, SendIcon, Text, TokenImage, nativeTokenImageUrl } from '@0xsequence/design-system';
 import { ContractVerificationStatus, GatewayNativeTokenBalance } from '@0xsequence/indexer'
 import { ChainId } from '@0xsequence/network'
 import { formatUnits } from 'ethers'
@@ -52,126 +43,101 @@ export const InventoryPage = () => {
   })[]
 
   return (
-    <Box
-      display="grid"
-      height="full"
-      alignItems="center"
-      gap="5"
-      padding="20"
-      style={{ gridTemplateColumns: 'repeat(auto-fill, minmax(200px, 1fr))', gridAutoRows: 'auto' }}
-    >
-      <Box height="full" width="full" flexDirection="column" gap="8">
+    (<div
+      className="grid h-full items-center gap-5 p-20"
+      style={{ gridTemplateColumns: 'repeat(auto-fill, minmax(200px, 1fr))', gridAutoRows: 'auto' }}>
+      <div className="flex h-full w-full flex-col gap-8">
         {nativeBalances.map(({ chainId, balance }) => (
-          <Box key={chainId} gap="3" flexDirection="row" alignItems="center" minWidth="0">
+          <div className="flex gap-3 flex-row items-center min-w-0" key={chainId}>
             <TokenImage src={nativeTokenImageUrl(chainId)} size="lg" withNetwork={chainId} />
             <Text
+              className="text-right whitespace-nowrap"
               variant="normal"
               color="text50"
               fontWeight="bold"
-              textAlign="right"
-              whiteSpace="nowrap"
-              ellipsis
-            >
+              ellipsis>
               {formatUnits(balance, 18)}
             </Text>
             <IconButton
-              opacity={{ hover: '80' }}
-              color="text100"
+              className="text-text100 w-full ml-auto"
               size="sm"
-              width="full"
               variant="primary"
-              marginLeft="auto"
-              icon={SendIcon}
-            />
-          </Box>
+              icon={SendIcon} />
+          </div>
         ))}
 
         {erc20Balances.map(({ chainId, balance, contractAddress, contractInfo }) => (
-          <Box
-            key={`${contractAddress}-${chainId}`}
-            gap="3"
-            flexDirection="row"
-            alignItems="center"
-            minWidth="0"
-          >
+          <div
+            className="flex gap-3 flex-row items-center min-w-0"
+            key={`${contractAddress}-${chainId}`}>
             <TokenImage src={contractInfo?.logoURI} size="lg" withNetwork={chainId} />
             <Text
+              className="text-right whitespace-nowrap"
               variant="normal"
               color="text50"
               fontWeight="bold"
-              textAlign="right"
-              whiteSpace="nowrap"
-              ellipsis
-            >
+              ellipsis>
               {formatUnits(balance, 18)}
             </Text>
             <IconButton
-              opacity={{ hover: '80' }}
-              color="text100"
+              className="text-text100 w-full ml-auto"
               size="sm"
-              width="full"
               variant="primary"
-              marginLeft="auto"
-              icon={SendIcon}
-            />
-          </Box>
+              icon={SendIcon} />
+          </div>
         ))}
-      </Box>
-
+      </div>
       {collectibleBalances.map(
         ({ chainId, balance, contractAddress, contractInfo, tokenMetadata, tokenID }) => (
-          <Box
-            key={`${contractAddress}-${tokenID}-${chainId}`}
-            flexDirection="column"
-            gap="3"
-            paddingBottom="5"
-            paddingX="4"
-            paddingTop="0"
-          >
-            <Box gap="3" alignItems="center" justifyContent="center" flexDirection="column">
-              <Box flexDirection="row" gap="2" justifyContent="center" alignItems="center">
+          <div
+            className="flex flex-col gap-3 pb-5 px-4 pt-0"
+            key={`${contractAddress}-${tokenID}-${chainId}`}>
+            <div className="flex gap-3 items-center justify-center flex-col">
+              <div className="flex flex-row gap-2 justify-center items-center">
                 {contractInfo?.logoURI && (
                   <Image
-                    borderRadius="circle"
-                    width="8"
+                    className="rounded-full w-8"
                     src={contractInfo.logoURI}
                     alt="collection logo"
-                    style={{ objectFit: 'cover' }}
-                  />
+                    style={{ objectFit: 'cover' }} />
                 )}
-                <Box gap="1" flexDirection="row" justifyContent="center" alignItems="center">
+                <div className="flex gap-1 flex-row justify-center items-center">
                   <Text variant="small" fontWeight="bold" color="text100">
                     {contractInfo?.name || 'Unknown Collection'}
                   </Text>
                   <NetworkImage chainId={chainId} size="xs" />
-                </Box>
-              </Box>
-              <Box flexDirection="column" justifyContent="center" alignItems="center">
+                </div>
+              </div>
+              <div className="flex flex-col justify-center items-center">
                 <Text variant="large" color="text100" fontWeight="bold">
                   {tokenMetadata?.name || 'Unknown Collectible'}
                 </Text>
                 <Text variant="small" color="text50" fontWeight="medium">
                   {`#${tokenID}`}
                 </Text>
-              </Box>
-            </Box>
-            <Box>
+              </div>
+            </div>
+            <div>
               <CollectibleTileImage imageUrl={tokenMetadata?.image} />
-            </Box>
-            <Box>
+            </div>
+            <div>
               <Text variant="normal" fontWeight="medium" color="text50">
                 Balance
               </Text>
-              <Box flexDirection="row" alignItems="flex-end" justifyContent="space-between">
+              <div className="flex flex-row items-end justify-between">
                 <Text variant="xlarge" fontWeight="bold" color="text100">
                   {balance}
                 </Text>
-              </Box>
-            </Box>
-            <Button color="text100" width="full" variant="primary" leftIcon={SendIcon} label="Send" />
-          </Box>
+              </div>
+            </div>
+            <Button
+              className="text-text100 w-full"
+              variant="primary"
+              leftIcon={SendIcon}
+              label="Send" />
+          </div>
         )
       )}
-    </Box>
-  )
+    </div>)
+  );
 }

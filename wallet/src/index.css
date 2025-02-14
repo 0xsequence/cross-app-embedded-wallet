@@ -1,3 +1,8 @@
+@import 'tailwindcss';
+@import '@0xsequence/design-system/preset';
+@import './design-system-placeholder.css';
+@import './colors.css';
+
 *,
 *::before,
 *::after {
@@ -11,7 +16,8 @@ body {
     'Droid Sans', 'Helvetica Neue', sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  background: var(--seq-colors-background-primary);
+  background: var(--seq-color-background-primary);
+  color: var(--seq-color-primary);
 }
 
 code {

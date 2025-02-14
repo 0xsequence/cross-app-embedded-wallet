@@ -1,4 +1,4 @@
-import { Box, Spinner } from '@0xsequence/design-system'
+import { Spinner } from '@0xsequence/design-system'
 import { PropsWithChildren } from 'react'
 import { Navigate, useLocation } from 'react-router'
 
@@ -12,9 +12,9 @@ export const PrivateRoute = ({ children }: PropsWithChildren) => {
 
   if (authState.status === 'loading') {
     return (
-      <Box alignItems="center" justifyContent="center" style={{ height: 'calc(100vh - 24px)' }}>
+      <div className="flex items-center justify-center" style={{ height: 'calc(100vh - 24px)' }}>
         <Spinner size="lg" />
-      </Box>
+      </div>
     )
   }
 

@@ -11,8 +11,9 @@
     "prettier": "pnpx prettier --write ."
   },
   "dependencies": {
+    "@0xsequence/design-system": "2.0.1",
+    "@tailwindcss/vite": "^4.0.6",
     "@0xsequence/api": "^2.2.13",
-    "@0xsequence/design-system": "1.7.8",
     "@0xsequence/indexer": "^2.2.13",
     "@0xsequence/network": "^2.2.13",
     "@0xsequence/waas": "^2.2.13",
@@ -20,15 +21,16 @@
     "@react-oauth/google": "^0.12.1",
     "@tanstack/react-query": "^5.66.0",
     "@walletconnect/sign-client": "^2.18.0",
-    "ethers": "6.13.3",
+    "ethers": "6.13.0",
     "framer-motion": "^11.5.2",
     "qr-scanner": "^1.4.2",
     "react": "^18.3.1",
     "react-apple-signin-auth": "^1.1.0",
     "react-dom": "^18.3.1",
     "react-router": "^7.1.5",
+    "tailwindcss": "^4.0.6",
     "valtio": "^2.0.0",
-    "viem": "^2.21.21"
+    "viem": "^2.23.2"
   },
   "devDependencies": {
     "@eslint/js": "^9.9.0",

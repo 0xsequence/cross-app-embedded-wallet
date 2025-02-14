@@ -1,4 +1,3 @@
-import '@0xsequence/design-system/styles.css'
 import { Navigate, Route, Routes } from 'react-router'
 
 import { AppLayout, ProtectedLayout } from './Layout'

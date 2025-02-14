@@ -2,7 +2,7 @@ import React from 'react'
 
 export const SequenceLogo: React.FunctionComponent = ({ ...props }) => {
   return (
-    <React.Fragment>
+    (<React.Fragment>
       <svg
         xmlns="http://www.w3.org/2000/svg"
         style={{ fill: 'none' }}
@@ -182,13 +182,23 @@ export const SequenceLogo: React.FunctionComponent = ({ ...props }) => {
             <stop id="stop1305" stopColor="#9C6DFF" offset="1" />
           </linearGradient>
           <clipPath id="clip0_5_131">
-            <rect style={{ fill: '#ffffff' }} y="0" x="0" id="rect1308" height="317.67001" width="396" />
+            <rect
+              className="h-317.67001 w-396"
+              style={{ fill: '#ffffff' }}
+              y="0"
+              x="0"
+              id="rect1308" />
           </clipPath>
           <clipPath id="clip1_5_131">
-            <rect style={{ fill: '#ffffff' }} y="0" x="0" id="rect1311" height="317.67001" width="396" />
+            <rect
+              className="h-317.67001 w-396"
+              style={{ fill: '#ffffff' }}
+              y="0"
+              x="0"
+              id="rect1311" />
           </clipPath>
         </defs>
       </svg>
-    </React.Fragment>
-  )
+    </React.Fragment>)
+  );
 }

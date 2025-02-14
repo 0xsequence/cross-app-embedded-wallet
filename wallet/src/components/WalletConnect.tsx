@@ -1,13 +1,4 @@
-import {
-  Box,
-  Button,
-  Divider,
-  Spinner,
-  TabsHeader,
-  TabsRoot,
-  Text,
-  TextInput
-} from '@0xsequence/design-system'
+import { Button, Divider, Spinner, TabsHeader, TabsRoot, Text, TextInput } from '@0xsequence/design-system';
 import { SessionTypes } from '@walletconnect/types'
 import { useEffect, useState } from 'react'
 import { subscribe, useSnapshot } from 'valtio'
@@ -60,43 +51,35 @@ const formatTime = (timestamp: number) => {
 }
 
 const isMobileDevice = () => {
-  return /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)
+  return /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
 }
 
 const ActiveSessionCard: React.FC<ActiveSessionCardProps> = ({ session, onDisconnect }) => {
   const isExpired = session.expiry * 1000 < Date.now()
 
   return (
-    <Box
-      background="backgroundSecondary"
-      borderRadius="md"
-      padding="4"
-      flexDirection="row"
-      alignItems="center"
-      justifyContent="space-between"
-      gap="4"
-      opacity={isExpired ? '50' : '100'}
-    >
-      <Box flexDirection="row" gap="3" alignItems="center" style={{ flex: 1 }}>
-        <Box flexDirection="column" gap="1">
-          <Box flexDirection="row" alignItems="center" gap="2">
+    (<div
+      className="flex bg-background-secondary rounded-xl p-4 flex-row items-center justify-between gap-4">
+      <div className="flex flex-row gap-3 items-center" style={{ flex: 1 }}>
+        <div className="flex flex-col gap-1">
+          <div className="flex flex-row items-center gap-2">
             <Text variant="normal" color="text100" fontWeight="bold">
               {session.peerMetadata.name}
             </Text>
-          </Box>
+          </div>
           <Text variant="small" color="text80">
             {new URL(session.peerMetadata.url).hostname}
           </Text>
           <Text variant="xsmall" color="text50">
             Connected: {formatTime(session.expiry - 7 * 24 * 60 * 60)} {/* Assuming 7 day expiry */}
           </Text>
-        </Box>
-      </Box>
-      <Box flexDirection="column" gap="2" alignItems="flex-end">
+        </div>
+      </div>
+      <div className="flex flex-col gap-2 items-end">
         <Button size="sm" variant="danger" onClick={() => onDisconnect(session.topic)} label="Disconnect" />
-      </Box>
-    </Box>
-  )
+      </div>
+    </div>)
+  );
 }
 
 type ConnectMethod = 'uri' | 'qr'
@@ -159,21 +142,21 @@ export const WalletConnect = () => {
   const connectMethods = getConnectMethods(isMobile)
 
   return (
-    <Box gap="2" flexDirection="column" style={{ maxWidth: '400px' }}>
-      <Box flexDirection="column" gap="2">
-        <Box flexDirection="column" gap="3">
-          <Box flexDirection="row" gap="2" justifyContent="space-between" alignItems="center">
+    (<div className="flex gap-2 flex-col" style={{ maxWidth: '400px' }}>
+      <div className="flex flex-col gap-2">
+        <div className="flex flex-col gap-3">
+          <div className="flex flex-row gap-2 justify-between items-center">
             <Text variant="small" color="text80">
               Connect to a dApp using WalletConnect
             </Text>
-          </Box>
+          </div>
           <TabsRoot
             value={connectMethod}
             onValueChange={(value: string) => setConnectMethod(value as ConnectMethod)}
           >
             <TabsHeader tabs={connectMethods} value={connectMethod} />
           </TabsRoot>
-          <Box flexDirection="column" gap="2" width="full">
+          <div className="flex flex-col gap-2 w-full">
             {connectMethod === 'uri' ? (
               <>
                 <TextInput
@@ -186,7 +169,7 @@ export const WalletConnect = () => {
                     }
                   }}
                 />
-                <Box alignItems="center" justifyContent="center" marginTop="2" height="10">
+                <div className="flex items-center justify-center mt-2 h-10">
                   {isConnecting ? (
                     <Spinner />
                   ) : (
@@ -197,21 +180,18 @@ export const WalletConnect = () => {
                       label="Connect"
                     />
                   )}
-                </Box>
+                </div>
               </>
             ) : (
               <>
                 {isQrScannerActive ? (
-                  <Box
-                    background="backgroundSecondary"
-                    borderRadius="md"
-                    padding="4"
-                    style={{ aspectRatio: '1', width: '100%' }}
-                  >
+                  <div
+                    className="bg-background-secondary rounded-xl p-4"
+                    style={{ aspectRatio: '1', width: '100%' }}>
                     {isConnecting ? (
-                      <Box alignItems="center" justifyContent="center" height="full">
+                      <div className="flex items-center justify-center h-full">
                         <Spinner />
-                      </Box>
+                      </div>
                     ) : (
                       <QRScanner
                         onScan={handleScan}
@@ -221,22 +201,21 @@ export const WalletConnect = () => {
                         }}
                       />
                     )}
-                  </Box>
+                  </div>
                 ) : (
-                  <Box alignItems="center" justifyContent="center" marginTop="2" height="10">
+                  <div className="flex items-center justify-center mt-2 h-10">
                     <Button variant="primary" onClick={() => setIsQrScannerActive(true)} label="Scan again" />
-                  </Box>
+                  </div>
                 )}
               </>
             )}
-          </Box>
-        </Box>
-      </Box>
-
+          </div>
+        </div>
+      </div>
       {validSessions.length > 0 && (
         <>
-          <Divider width="full" />
-          <Box flexDirection="column" gap="2">
+          <Divider className="w-full" />
+          <div className="flex flex-col gap-2">
             {validSessions.map(session => (
               <ActiveSessionCard
                 key={session.topic}
@@ -244,31 +223,23 @@ export const WalletConnect = () => {
                 onDisconnect={walletConnectStore.disconnectSession}
               />
             ))}
-          </Box>
+          </div>
         </>
       )}
-
       {!validSessions.length && (
         <>
-          <Divider width="full" />
-          <Box
-            flexDirection="column"
-            alignItems="center"
-            justifyContent="center"
-            gap="2"
-            padding="6"
-            background="backgroundSecondary"
-            borderRadius="md"
-          >
-            <Text variant="normal" color="text80" textAlign="center">
+          <Divider className="w-full" />
+          <div
+            className="flex flex-col items-center justify-center gap-2 p-6 bg-background-secondary rounded-xl">
+            <Text className="text-center" variant="normal" color="text80">
               No active connections
             </Text>
-            <Text variant="small" color="text50" textAlign="center">
+            <Text className="text-center" variant="small" color="text50">
               Connect to a dApp using WalletConnect to get started
             </Text>
-          </Box>
+          </div>
         </>
       )}
-    </Box>
-  )
+    </div>)
+  );
 }

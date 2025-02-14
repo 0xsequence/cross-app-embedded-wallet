@@ -1,9 +1,7 @@
-import { Box } from '@0xsequence/design-system'
-
 export const SendPage = () => {
   return (
-    <Box background="white">
+    <div className="bg-white">
       <h1>Send Page</h1>
-    </Box>
+    </div>
   )
 }

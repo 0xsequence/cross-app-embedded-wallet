@@ -1,4 +1,4 @@
-import { Box, NetworkImage as DesignSystemNetworkImage, Tooltip } from '@0xsequence/design-system'
+import { NetworkImage as DesignSystemNetworkImage, Tooltip } from '@0xsequence/design-system';
 import { NetworkType, allNetworks } from '@0xsequence/network'
 
 export const NetworkImage = ({
@@ -15,25 +15,19 @@ export const NetworkImage = ({
   const chain = allNetworks.find(c => c.chainId === chainId)
 
   return (
-    <NetworkImageWrapper chainId={chainId} shouldShowTooltip={shouldShowTooltip}>
+    (<NetworkImageWrapper chainId={chainId} shouldShowTooltip={shouldShowTooltip}>
       <DesignSystemNetworkImage chainId={chainId} disableAnimation={disableAnimation} size={size} />
-
       {chain?.type === NetworkType.TESTNET && (
-        <Box
-          position="absolute"
-          background="warning"
-          width="2"
-          height="2"
+        <div
+          className="absolute bg-warning w-2 h-2 rounded-full"
           style={{
             border: '2px solid #1a1a1a',
             left: '-2px',
             top: '-2px'
-          }}
-          borderRadius="circle"
-        />
+          }} />
       )}
-    </NetworkImageWrapper>
-  )
+    </NetworkImageWrapper>)
+  );
 }
 
 export const NetworkImageWrapper = ({
@@ -50,16 +44,16 @@ export const NetworkImageWrapper = ({
   const networkTitle = network?.title || network?.name || 'Unknown Network'
   if (shouldShowTooltip) {
     return (
-      <Tooltip message={`${networkTitle}${network?.testnet ? ' (Testnet)' : ''}`} vOffset={2}>
-        <Box position="relative" width="fit" height="fit" background="transparent">
+      (<Tooltip message={`${networkTitle}${network?.testnet ? ' (Testnet)' : ''}`} vOffset={2}>
+        <div className="relative w-fit h-fit bg-transparent">
           {children}
-        </Box>
-      </Tooltip>
-    )
+        </div>
+      </Tooltip>)
+    );
   }
   return (
-    <Box position="relative" width="fit" height="fit" background="transparent">
+    (<div className="relative w-fit h-fit bg-transparent">
       {children}
-    </Box>
-  )
+    </div>)
+  );
 }

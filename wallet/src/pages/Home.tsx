@@ -1,21 +1,9 @@
-import { Box } from '@0xsequence/design-system'
-
 import { Wallet } from './Wallet'
 
 export const Home: React.FC = () => {
   return (
-    <Box
-      maxWidth="1/2"
-      marginTop="10"
-      marginX="auto"
-      paddingX="4"
-      flexDirection="column"
-      gap="4"
-      alignItems="center"
-      justifyContent="center"
-      width="full"
-    >
+    <div className="flex max-w-1/2 mt-10 mx-auto px-4 flex-col gap-4 items-center justify-center w-full">
       <Wallet />
-    </Box>
+    </div>
   )
 }

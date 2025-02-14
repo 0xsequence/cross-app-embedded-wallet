@@ -1,0 +1,53 @@
+@theme {
+  --theme-rounded-xs: 0.25rem;
+  --theme-rounded-sm: 0.5rem;
+  --theme-rounded-md: 0.75rem;
+  --theme-rounded-lg: 1rem;
+  --theme-rounded-xl: 1.5rem;
+}
+
+@utility rounded-* {
+  border-radius: --value(--theme-rounded- *);
+}
+
+/** Text style utilities */
+@utility text-style-xl {
+  @apply text-3xl leading-9 font-bold;
+}
+
+@utility text-inerit {
+  @apply text-inherit;
+  @apply rounded-full;
+
+  letter-spacing: inherit;
+  line-height: inherit;
+  font-family: inherit;
+}
+
+@utility text-style-lg {
+  @apply font-body text-xl leading-7 tracking-normal font-semibold;
+}
+
+@utility text-style-md {
+  @apply font-body text-xl leading-7 tracking-normal font-semibold;
+}
+
+@utility text-style-body {
+  @apply font-body text-sm leading-7 tracking-wide font-normal;
+}
+
+@utility text-style-normal {
+  @apply font-body text-sm leading-7 tracking-wide font-normal;
+}
+
+@utility text-style-sm {
+  @apply font-body text-xs leading-4 tracking-wide font-medium;
+}
+
+@utility text-style-xs {
+  @apply font-body text-[0.625rem] leading-4 tracking-wide font-bold;
+}
+
+@utility text-style-code {
+  @apply font-mono text-sm leading-5 font-normal;
+}

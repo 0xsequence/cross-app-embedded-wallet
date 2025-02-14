@@ -1,5 +1,4 @@
 import {
-  Box,
   Button,
   Card,
   ChevronDownIcon,
@@ -40,88 +39,73 @@ export const AccountMenu = () => {
   return (
     <PopoverPrimitive.Root open={isOpen} onOpenChange={toggleOpen}>
       <PopoverPrimitive.Trigger asChild>
-        <Box
-          borderColor={isOpen ? 'borderFocus' : 'borderNormal'}
-          borderWidth="thin"
-          borderStyle="solid"
-          borderRadius="md"
-          paddingX="4"
-          paddingY="3"
-          cursor="pointer"
-          gap="2"
-          alignItems="center"
-          userSelect="none"
-          opacity={{ hover: '80' }}
+        <div
+          className="flex border-1 border-solid rounded-xl px-4 py-3 cursor-pointer gap-2 items-center select-none"
           style={{ height: 52 }}
         >
-          <Box flexDirection="column">
-            <Box flexDirection="row" gap="2" justifyContent="flex-end" alignItems="center">
+          <div className="flex flex-col">
+            <div className="flex flex-row gap-2 justify-end items-center">
               <GradientAvatar address={String(address)} size="sm" />
               <Text variant="normal" fontWeight="bold" color="text100">
                 {truncateAddress(String(address), 4)}
               </Text>
-            </Box>
-          </Box>
+            </div>
+          </div>
 
-          <Box color="text50">
+          <div className="text-text50">
             <ChevronDownIcon />
-          </Box>
-        </Box>
+          </div>
+        </div>
       </PopoverPrimitive.Trigger>
-
       {isOpen && (
         <PopoverPrimitive.Portal>
           <PopoverPrimitive.Content side="bottom" sideOffset={8} align="end" asChild>
             <Card
-              zIndex="20"
-              background="backgroundRaised"
-              backdropFilter="blur"
-              position="relative"
-              padding="2"
+              className="z-20 bg-background-raised backdrop-blur-md relative p-2"
               style={{ minWidth: 360 }}
             >
               <Card>
-                <Box alignItems="center" justifyContent="space-between">
+                <div className="flex items-center justify-between">
                   <Text variant="normal" fontWeight="bold" color="text100">
                     Account
                   </Text>
-                </Box>
+                </div>
 
-                <Text as="div" marginTop="2" variant="normal" color="text80">
-                  {address}
+                <Text className="mt-2" variant="normal" color="text80" asChild>
+                  <div>{address}</div>
                 </Text>
               </Card>
 
-              <Box marginTop="2">
+              <div className="mt-2">
                 <Button
-                  width="full"
+                  className="w-full"
                   shape="square"
                   variant="emphasis"
                   rightIcon={ReceiveIcon}
                   label="Receive"
                   onClick={() => navigate('/receive')}
                 />
-              </Box>
-              <Box marginTop="2">
+              </div>
+              <div className="mt-2">
                 <Button
-                  width="full"
+                  className="w-full"
                   shape="square"
                   variant="emphasis"
                   rightIcon={TransactionIcon}
                   label="History"
                   onClick={() => navigate('/history')}
                 />
-              </Box>
-              <Box marginTop="2">
+              </div>
+              <div className="mt-2">
                 <Button
-                  width="full"
+                  className="w-full"
                   shape="square"
                   variant="emphasis"
                   rightIcon={SignoutIcon}
                   label="Sign out"
                   onClick={handleSignOut}
                 />
-              </Box>
+              </div>
             </Card>
           </PopoverPrimitive.Content>
         </PopoverPrimitive.Portal>

@@ -1,4 +1,4 @@
-import { Box, Button, Text } from '@0xsequence/design-system'
+import { Button, Text } from '@0xsequence/design-system';
 import { EmailConflictInfo, IdentityType } from '@0xsequence/waas'
 
 interface EmailConflictWarningProps {
@@ -38,30 +38,23 @@ export const EmailConflictWarning = (props: EmailConflictWarningProps) => {
   const { onCancel } = props
 
   return (
-    <Box
-      style={{ maxWidth: '600px' }}
-      flexDirection="column"
-      paddingX="10"
-      paddingY="4"
-      alignItems="center"
-      gap="4"
-    >
-      <Box>
+    (<div
+      className="flex flex-col px-10 py-4 items-center gap-4"
+      style={{ maxWidth: '600px' }}>
+      <div>
         <Text variant="large" color="text100" fontWeight="bold">
           Email already in use
         </Text>
-      </Box>
-      <Box height="full">
-        <Text as="div" variant="normal" color="text50" textAlign="center">
-          It looks like you've previously signed into this email{' '}
-          <Text color="text80">({props.info.email})</Text> with another login method. Please sign in again and
-          select the <Text color="text80">{accountTypeText(props.info)}</Text> option to access your account.
-        </Text>
-      </Box>
-
-      <Box flexDirection="row" gap="3" marginTop="2" marginBottom="2">
+      </div>
+      <div className="h-full">
+        <Text className="text-center" variant="normal" color="text50" asChild><div>It looks like you've previously signed into this email{' '}
+            <Text color="text80">({props.info.email})</Text>with another login method. Please sign in again and
+                      select the <Text color="text80">{accountTypeText(props.info)}</Text>option to access your account.
+                    </div></Text>
+      </div>
+      <div className="flex flex-row gap-3 mt-2 mb-2">
         <Button label="OK" onClick={onCancel} />
-      </Box>
-    </Box>
-  )
+      </div>
+    </div>)
+  );
 }

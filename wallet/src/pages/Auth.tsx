@@ -1,6 +1,5 @@
 import {
   ArrowRightIcon,
-  Box,
   Button,
   Card,
   Divider,
@@ -9,8 +8,8 @@ import {
   PINCodeInput,
   Spinner,
   Text,
-  TextInput
-} from '@0xsequence/design-system'
+  TextInput,
+} from '@0xsequence/design-system';
 import { EmailConflictInfo } from '@0xsequence/waas'
 import { CredentialResponse, GoogleLogin, GoogleOAuthProvider } from '@react-oauth/google'
 import React, { SetStateAction, useEffect, useRef, useState } from 'react'
@@ -141,159 +140,104 @@ export const Auth: React.FC = () => {
   const isPopup = window.opener !== null
 
   return (
-    <Box padding="4">
-      <Box alignItems="center" justifyContent="center">
-        <Box
-          flexDirection="column"
-          gap="2"
-          marginY="4"
-          alignItems="center"
-          justifyContent="center"
-          style={{ maxWidth: '400px' }}
-        >
-          <Box alignItems="center" flexDirection="column" marginBottom="2">
-            {PROJECT_LOGO && <Image src={PROJECT_LOGO} maxWidth="1/2" maxHeight="1/4" aspectRatio="1/1" />}
+    (<div className="p-4">
+      <div className="flex items-center justify-center">
+        <div
+          className="flex flex-col gap-2 my-4 items-center justify-center"
+          style={{ maxWidth: '400px' }}>
+          <div className="flex items-center flex-col mb-2">
+            {PROJECT_LOGO && <Image className="max-w-1/2 max-h-1/4 aspect-square" src={PROJECT_LOGO} />}
 
             {isPopup && (
-              <Text variant="normal" color="text100" textAlign="center" marginTop="4">
+              <Text className="text-center mt-4" variant="normal" color="text100">
                 Sign in to your <Text fontWeight="bold">{PROJECT_NAME}</Text> wallet to give access to dapp
                 with origin <Text fontWeight="bold">{pendingEventOrigin}</Text>
               </Text>
             )}
             {!isPopup && (
-              <Text variant="medium" color="text80" marginTop="4">
+              <Text className="mt-4" variant="medium" color="text80">
                 Sign in to your <Text color="text100">{PROJECT_NAME}</Text> wallet
               </Text>
             )}
-          </Box>
+          </div>
 
-          <Card marginTop="4" paddingBottom="4">
+          <Card className="mt-4 pb-4">
             {!emailAuthInProgress && (
               <>
-                <Box justifyContent="center">
-                  <Text variant="medium" color="text100">
-                    Sign in with social login
-                  </Text>
-                </Box>
-                <Box
-                  flexDirection="row"
-                  gap="4"
-                  marginY="5"
-                  justifyContent="center"
-                  alignItems="center"
-                  height={BUTTON_SIZE}
-                >
+                <div className="flex justify-center">
+                  Sign in with Soneium
+                </div>
+                <div className="flex flex-row gap-4 my-5 justify-center items-center">
                   {isSocialLoginInProgress ? (
                     <Spinner size="md" />
                   ) : (
                     <>
                       {GOOGLE_CLIENT_ID && (
                         <GoogleOAuthProvider clientId={googleClientId}>
-                          <Card
-                            clickable
-                            background="transparent"
-                            borderRadius="xs"
-                            padding="0"
-                            width={BUTTON_SIZE}
-                            height={BUTTON_SIZE}
-                            position="relative"
-                          >
-                            <Box
-                              width="full"
-                              height="full"
-                              overflow="hidden"
-                              borderRadius="sm"
-                              alignItems="center"
-                              justifyContent="center"
-                              style={{ opacity: 0.0000001, transform: 'scale(1.4)' }}
-                            >
+                          <Card className="bg-transparent rounded-sm p-0 relative" clickable>
+                            <div
+                              className="flex w-full h-full overflow-hidden rounded-lg items-center justify-center"
+                              style={{ opacity: 0.0000001, transform: 'scale(1.4)' }}>
                               <GoogleLogin
+                                className="w-56"
                                 type="icon"
                                 size="large"
-                                width="56"
                                 onSuccess={handleGoogleLogin}
                                 onError={() => {
                                   console.log('Login Failed')
                                   setIsSocialLoginInProgress(false)
                                 }}
                               />
-                            </Box>
-                            <Box
-                              background="backgroundSecondary"
-                              borderRadius="xs"
-                              display="flex"
-                              justifyContent="center"
-                              alignItems="center"
-                              position="absolute"
-                              pointerEvents="none"
-                              width="full"
-                              height="full"
-                              top="0"
-                              right="0"
-                            >
-                              <Box as={GoogleLogo} width={ICON_SIZE} height={ICON_SIZE} />
-                            </Box>
+                            </div>
+                            <div
+                              className="flex bg-background-secondary rounded-sm justify-center items-center absolute pointer-events-none w-full h-full top-0 right-0">
+                              <GoogleLogo width={ICON_SIZE} height={ICON_SIZE} />
+                            </div>
                           </Card>
                         </GoogleOAuthProvider>
                       )}
 
                       {APPLE_CLIENT_ID && (
                         <Card
+                          className="bg-transparent rounded-sm p-0 relative"
                           clickable
-                          background="transparent"
-                          borderRadius="xs"
-                          padding="0"
-                          width={BUTTON_SIZE}
-                          height={BUTTON_SIZE}
-                          position="relative"
-                          onClick={handleAppleLogin}
-                        >
-                          <Box
-                            background="backgroundSecondary"
-                            borderRadius="xs"
-                            display="flex"
-                            justifyContent="center"
-                            alignItems="center"
-                            width="full"
-                            height="full"
-                          >
-                            <Box as={AppleLogo} width={ICON_SIZE} height={ICON_SIZE} />
-                          </Box>
+                          onClick={handleAppleLogin}>
+                          <div
+                            className="flex bg-background-secondary rounded-sm justify-center items-center w-full h-full">
+                            <AppleLogo width={ICON_SIZE} height={ICON_SIZE} />
+                          </div>
                         </Card>
                       )}
                     </>
                   )}
-                </Box>
-                <Box position="relative" width="full">
-                  <Divider background="buttonGlass" width="full" />
-                </Box>
+                </div>
+                <div className="relative w-full">
+                  <Divider className="bg-button-glass w-full" />
+                </div>
               </>
             )}
 
-            <Box justifyContent="center">
+            <div className="flex justify-center">
               <Text variant="medium" color="text100">
                 Sign in with email
               </Text>
-            </Box>
+            </div>
 
             {sendChallengeAnswer ? (
-              <Box
-                flexDirection="column"
-                marginTop="6"
-                padding="4"
-                alignItems="center"
-                justifyContent="center"
-              >
-                <Box>
-                  <Text variant="normal" color="text80" alignItems="center" justifyContent="center">
+              <div className="flex flex-col mt-6 p-4 items-center justify-center">
+                <div>
+                  <Text
+                    className="flex items-center justify-center"
+                    variant="normal"
+                    color="text80">
                     Enter code received in email.
                   </Text>
-                </Box>
-                <Box marginTop="4">
+                </div>
+                <div className="mt-4">
                   <PINCodeInput value={code} digits={6} onChange={setCode} />
-                </Box>
+                </div>
 
-                <Box gap="2" marginTop="4" alignItems="center" justifyContent="center">
+                <div className="flex gap-2 mt-4 items-center justify-center">
                   {emailAuthLoading ? (
                     <Spinner />
                   ) : (
@@ -305,16 +249,16 @@ export const Auth: React.FC = () => {
                       data-id="verifyButton"
                     />
                   )}
-                </Box>
-              </Box>
+                </div>
+              </div>
             ) : (
-              <Box marginTop="2">
+              <div className="mt-2">
                 <Text variant="normal" color="text80">
                   Enter your email to receive a code to login and create your wallet.
                 </Text>
 
-                <Box flexDirection="row" gap="2">
-                  <Box marginTop="4" width="full">
+                <div className="flex flex-row gap-2">
+                  <div className="mt-4 w-full">
                     <TextInput
                       name="email"
                       type="email"
@@ -334,12 +278,11 @@ export const Auth: React.FC = () => {
                       data-id="loginEmail"
                     />
                     {showEmailWarning && (
-                      <Text as="p" variant="small" color="negative" marginY="2">
-                        Invalid email address
-                      </Text>
+                      <Text className="my-2" variant="small" color="negative" asChild><p>Invalid email address
+                                              </p></Text>
                     )}
-                  </Box>
-                  <Box gap="2" marginTop="4" alignItems="center" justifyContent="center">
+                  </div>
+                  <div className="flex gap-2 mt-4 items-center justify-center">
                     {emailAuthLoading ? (
                       <Spinner />
                     ) : (
@@ -352,14 +295,13 @@ export const Auth: React.FC = () => {
                         data-id="continueButton"
                       />
                     )}
-                  </Box>
-                </Box>
-              </Box>
+                  </div>
+                </div>
+              </div>
             )}
           </Card>
-        </Box>
-      </Box>
-
+        </div>
+      </div>
       {isEmailConflictModalOpen && emailConflictInfo && (
         <Modal size="small" onClose={() => setIsEmailConflictModalOpen(false)}>
           <EmailConflictWarning
@@ -382,6 +324,6 @@ export const Auth: React.FC = () => {
           />
         </Modal>
       )}
-    </Box>
-  )
+    </div>)
+  );
 }

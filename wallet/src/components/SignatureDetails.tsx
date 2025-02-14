@@ -1,4 +1,4 @@
-import { Box, Collapsible, Text } from '@0xsequence/design-system'
+import { Collapsible, Text } from '@0xsequence/design-system'
 import React from 'react'
 
 import { NetworkInfo } from './NetworkInfo'
@@ -20,22 +20,19 @@ export const SignatureDetails = ({ message, chainId, origin }: SignatureDetailsP
   }, [message])
 
   return (
-    <Box flexDirection="column" gap="2" width="full">
-      <Text variant="medium" color="text100" fontWeight="bold" marginTop="6" textAlign="center">
+    <div className="flex flex-col gap-2 w-full">
+      <Text className="mt-6 text-center" variant="medium" color="text100" fontWeight="bold">
         Signature Request <br />
         <Text variant="small" color="text80">
           from origin <Text fontWeight="bold">{origin} </Text>
         </Text>
       </Text>
-      <Box marginTop="2" flexDirection="column" gap="2" width="full">
+      <div className="flex mt-2 flex-col gap-2 w-full">
         {chainId && <NetworkInfo chainId={chainId} />}
         <Collapsible label="Message to sign:" open={true}>
           {isJson ? (
-            <Box
-              overflowX="scroll"
-              background="backgroundSecondary"
-              padding="4"
-              borderRadius="md"
+            <div
+              className="overflow-x-scroll bg-background-secondary p-4 rounded-xl"
               style={{
                 whiteSpace: 'pre',
                 maxHeight: '250px'
@@ -44,14 +41,14 @@ export const SignatureDetails = ({ message, chainId, origin }: SignatureDetailsP
               <Text variant="code" color="text100">
                 {message}
               </Text>
-            </Box>
+            </div>
           ) : (
             <Text variant="small" color="text80" style={{ wordBreak: 'break-all' }}>
               {message}
             </Text>
           )}
         </Collapsible>
-      </Box>
-    </Box>
+      </div>
+    </div>
   )
 }
